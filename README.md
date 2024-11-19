@@ -1,6 +1,8 @@
 # Jenkins_KnowHow
 On Windows
 
+git clone https://github.com/ShohelAlMahmudDev/Jenkins_KnowHow
+
 If you are working on a Docker desktop, please check whether you have "enabled docker terminal" from the settings.
 If not enabled then enable it. and step forward...
 
