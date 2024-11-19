@@ -61,4 +61,14 @@ The Jenkins project provides a Linux container image, not a Windows container im
       --volume jenkins-docker-certs:/certs/client:ro \
       --publish 8080:8080 --publish 50000:50000 myjenkins-blueocean:2.479.1-1
 
-6.  Proceed to the Setup wizard.
+
+Get the Password
+
+docker exec jenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword
+
+Connect to the Jenkins
+
+https://localhost:8080/
+
+Installation Reference:
+https://www.jenkins.io/doc/book/installing/docker/
