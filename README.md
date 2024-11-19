@@ -16,12 +16,12 @@ The Jenkins project provides a Linux container image, not a Windows container im
 
 3.  Run a docker:dind Docker image
 
-    docker run --name jenkins-docker --rm --detach ^
-      --privileged --network jenkins_local --network-alias docker ^
-      --env DOCKER_TLS_CERTDIR=/certs ^
-      --volume jenkins-docker-certs:/certs/client ^
-      --volume jenkins-data:/var/jenkins_home ^
-      --publish 2376:2376 ^
+    docker run --name jenkins-docker --rm --detach \
+      --privileged --network jenkins_local --network-alias docker \
+      --env DOCKER_TLS_CERTDIR=/certs \
+      --volume jenkins-docker-certs:/certs/client \
+      --volume jenkins-data:/var/jenkins_home \
+      --publish 2376:2376 \
       docker:find
 
 4.  Customize the official Jenkins Docker image, by executing the following two steps:
