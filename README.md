@@ -1,5 +1,11 @@
 # Jenkins_KnowHow
 On Windows
+
+If you are working on a Docker desktop, please check whether you have "enabled docker terminal" from the settings.
+If not enabled then enable it. and step forward...
+
+
+
 The Jenkins project provides a Linux container image, not a Windows container image. Be sure that your Docker for Windows installation is configured to run Linux Containers rather than Windows Containers. Refer to the Docker documentation for instructions to switch to Linux containers. Once configured to run Linux Containers, the steps are:
 
 1. Open up a command prompt window and similar to the macOS and Linux instructions above do the following:
