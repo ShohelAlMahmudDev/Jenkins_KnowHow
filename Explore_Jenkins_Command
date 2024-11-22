@@ -1,1 +1,10 @@
+1. Go to the docker bash shell and execute the command
+  docker exec -it jenkins-blueocean bash
+2. write pwd in the bash shell to print the current working directory path, starting from the root ( / )
+3. type cd /var/jenkins_home and enter 
+4. to the files and directory type ls -ltra You can see lots files and directory inside the jenkins
+5. now change directory to workspace.
+  cd workspace or any other directory you want to explore more
+
+
 
