@@ -99,4 +99,6 @@ docker run -d --restart=always -p 127.0.0.1:2376:2375 --network jenkins -v /var/
 
 docker inspect <container_id>
 
+Remote Filesystem Root
+AGENT_WORKDIR=/home/jenkins/agent
 
