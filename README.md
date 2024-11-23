@@ -31,20 +31,37 @@ The Jenkins project provides a Linux container image, not a Windows container im
   a. Create a Dockerfile with the following content:
 
       FROM jenkins/jenkins:2.479.1-jdk17
-      USER root
-      RUN apt-get update && apt-get install -y lsb-release
-      RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
-        https://download.docker.com/linux/debian/gpg
-      RUN echo "deb [arch=$(dpkg --print-architecture) \
-        signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
-        https://download.docker.com/linux/debian \
-        $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
-      RUN apt-get update && apt-get install -y docker-ce-cli
-      USER jenkins
-      RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
-      dockerfile
-      
-      Copied!
+
+        # Switch to root to install dependencies
+        USER root
+        
+        # Install base dependencies
+        RUN apt-get update && apt-get install -y \
+            lsb-release \
+            curl \
+            gnupg \
+            && apt-get clean
+        
+        # Add Docker's official GPG key
+        RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+        
+        # Set up Docker repository
+        RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
+            https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+        
+        # Update and install Docker CLI and Python
+        RUN apt-get update && apt-get install -y \
+            docker-ce-cli \
+            python3 \
+            python3-pip \
+            && ln -s /usr/bin/python3 /usr/bin/python \
+            && apt-get clean
+        
+        # Switch back to Jenkins user
+        USER jenkins
+        
+        # Install Jenkins plugins
+        RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
 
   b.  Build a new docker image from this Dockerfile and assign the image a meaningful name, e.g. "myjenkins-blueocean:2.479.1-1":
 
@@ -72,3 +89,16 @@ https://localhost:8080/
 
 Installation Reference:
 https://www.jenkins.io/doc/book/installing/docker/
+
+
+
+alpine/socat container to forward traffic from Jenkins to Docker Desktop on Host Machine
+https://stackoverflow.com/questions/47709208/how-to-find-docker-host-uri-to-be-used-in-jenkins-docker-plugin
+
+docker run -d --restart=always -p 127.0.0.1:2376:2375 --network jenkins_local -v /var/run/docker.sock:/var/run/docker.sock alpine/socat tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+
+docker inspect <container_id>
+
+Remote Filesystem Root(AGENT_WORKDIR)
+/home/jenkins/agent
+
