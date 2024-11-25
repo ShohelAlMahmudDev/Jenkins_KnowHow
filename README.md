@@ -103,5 +103,6 @@ Remote Filesystem Root(AGENT_WORKDIR)
 Default Path
 /jenkins/home
 or
+if you are using jenkins/inboud-agent then use as below
 /home/jenkins/agent
 
