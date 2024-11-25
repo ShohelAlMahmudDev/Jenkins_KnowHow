@@ -100,5 +100,8 @@ docker run -d --restart=always -p 127.0.0.1:2376:2375 --network jenkins_local -v
 docker inspect <container_id>
 
 Remote Filesystem Root(AGENT_WORKDIR)
+Default Path
+/jenkins/home
+or
 /home/jenkins/agent
 
